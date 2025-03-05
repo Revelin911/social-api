@@ -9,11 +9,11 @@ import {
   removeAssignment,
 } from '../../controllers/studentController.js';
 
-// /api/students
+// /api/users
 router.route('/').get(getAllStudents).post(createStudent);
 
-// /api/students/:studentId
-router.route('/:studentId').get(getStudentById).delete(deleteStudent);
+// /api/users/:userId/friends/:friendId
+router.route('/:userId').get(getStudentById).delete(deleteStudent);
 
 // /api/students/:studentId/assignments
 router.route('/:studentId/assignments').post(addAssignment);

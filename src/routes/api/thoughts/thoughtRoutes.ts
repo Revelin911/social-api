@@ -8,12 +8,12 @@ import {
   deleteCourse,
 } from '../../controllers/courseController.js';
 
-// /api/courses
+// /api/thoughts
 router.route('/').get(getAllCourses).post(createCourse);
 
-// /api/courses/:courseId
+// /api/thoughts/:thoughtId/reactions
 router
-  .route('/:courseId')
+  .route('/:thoughtId')
   .get(getCourseById)
   .put(updateCourse)
   .delete(deleteCourse);
