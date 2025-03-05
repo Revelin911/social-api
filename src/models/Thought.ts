@@ -1,11 +1,15 @@
 import { Schema, Types, model, type Document } from 'mongoose';
 
-interface IAssignment extends Document {
-    assignmentId: Schema.Types.ObjectId,
-    name: string,
-    score: number
+interface IThought extends Document {
+    thoughtText: string,
+    createdAt: Date,
+    username: string,
+    reactions: , //Array of nested documents created with the reactionSchema
 }
 
+//Schema Settings: Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
+
+// edit code under
 interface IStudent extends Document {
     first: string,
     last: string,

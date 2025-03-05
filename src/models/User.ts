@@ -3,8 +3,8 @@ import { Schema, model, type Document } from 'mongoose';
 interface IUser extends Document {
     username: string,
     email: string,
-    thoughts: //array of _id values referencing the Thought model
-    friends: //Array of _id values referencing the User model (self-reference)
+    thoughts: , //array of _id values referencing the Thought model
+    friends: , //Array of _id values referencing the User model (self-reference)
 }
 //Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
 
@@ -39,4 +39,10 @@ const courseSchema = new Schema<ICourse>(
         toJSON: {
             virtuals: true,
         },
-        timesta
+        timestamps: true
+    },
+);
+
+const Course = model<ICourse>('Course', courseSchema);
+
+export default Course;
