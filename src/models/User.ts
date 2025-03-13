@@ -1,48 +1,51 @@
-import { Schema, model, type Document } from 'mongoose';
+import { Schema, model, type Document, Types } from 'mongoose';
 
 interface IUser extends Document {
     username: string,
     email: string,
-    thoughts: , //array of _id values referencing the Thought model
-    friends: , //Array of _id values referencing the User model (self-reference)
+    thoughts: Types.ObjectId[]; //array of _id values referencing the Thought model
+    friends: Types.ObjectId[]; //Array of _id values referencing the User model (self-reference)
 }
 //Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
 
-// edit all code under
-const courseSchema = new Schema<ICourse>(
+const userSchema = new Schema<IUser>(
     {
-        name: {
+        username: {
             type: String,
             required: true,
+            unique: true,
+            trim: true
         },
-        inPerson: {
-            type: Boolean,
-            default: true,
+        email: {
+            type: String,
+            required: true,
+            unqiue: true,
+            match: /.+\@.+\..+/
         },
-        start: {
-            type: Date,
-            default: Date.now(),
-        },
-        end: {
-            type: Date,
-            // Sets a default value of 12 weeks from now
-            default: () => new Date(+new Date() + 84 * 24 * 60 * 60 * 1000),
-        },
-        students: [
+        thoughts: [
+            {
+            type: Schema.Types.ObjectId,
+            ref: 'Thought'
+        }
+    ],
+        friends: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'student',
-            },
+                ref: 'User',
+            }
         ],
     },
     {
         toJSON: {
             virtuals: true,
-        },
-        timestamps: true
+        }
     },
 );
 
-const Course = model<ICourse>('Course', courseSchema);
+    userSchema.virtual('friendCount').get(function() {
+return this.friends.length;
+    });
 
-export default Course;
+const User = model<IUser>('User', userSchema);
+
+export default User;

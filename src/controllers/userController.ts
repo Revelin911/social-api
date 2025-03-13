@@ -1,11 +1,11 @@
 // ObjectId() method for converting studentId string into an ObjectId for querying database
 import { ObjectId } from 'mongodb';
-import { Student, Course } from '../models/index.js';
+import { Thought, User} from '../models/index'
 import { Request, Response } from 'express';
 
-// TODO: Create an aggregate function to get the number of students overall
+// Aggregate function to get the number of students overall
 
-export const headCount = async () => {
+export const  = async () => {
     // Your code here
     const numberOfStudents = await Student.aggregate()
     return numberOfStudents;
