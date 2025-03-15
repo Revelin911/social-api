@@ -10,15 +10,25 @@ import {
 } from '../../../controllers/userController';
 
 // /api/users
-router.route('/').get(getAllUsers).post(createUser);
+router
+.route('/')
+.get(getAllUsers)
+.post(createUser);
 
 // /api/users/:userId/friends/:friendId
-router.route('/:userId').get(getUserById).delete(deleteUser);
+router
+.route('/:userId')
+.get(getUserById)
+.delete(deleteUser);
 
 // /api/users/:userId/thoughts
-router.route('/:userId/thoughts').post(addThought);
+router
+.route('/:userId/thoughts')
+.post(addThought);
 
 // /api/users/:userId/thoughts/:thoughtId
-router.route('/:userId/thoughts/:thoughtId').delete(removeThought);
+router
+.route('/:userId/thoughts/:thoughtId')
+.delete(removeThought);
 
 export { router as UserRouter} ;

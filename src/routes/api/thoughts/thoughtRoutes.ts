@@ -1,21 +1,21 @@
 import { Router } from 'express';
 const router = Router();
 import {
-  getAllCourses,
-  getCourseById,
-  createCourse,
-  updateCourse,
-  deleteCourse,
-} from '../../controllers/courseController.js';
+  getAllThoughts,
+  getThoughtById,
+  createThought,
+  updateThought,
+  deleteThought,
+} from '../../../controllers/thoughtController';
 
 // /api/thoughts
-router.route('/').get(getAllCourses).post(createCourse);
+router.route('/').get(getAllThoughts).post(createThought);
 
 // /api/thoughts/:thoughtId/reactions
 router
   .route('/:thoughtId')
-  .get(getCourseById)
-  .put(updateCourse)
-  .delete(deleteCourse);
+  .get(getThoughtById)
+  .put(updateThought)
+  .delete(deleteThought);
 
-export { router as courseRouter };
+export { router as ThoughtRouter };
