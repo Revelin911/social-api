@@ -1,14 +1,11 @@
 import { Request, Response } from 'express';
-import { Course, Student } from '../models/index.js';
+import { Thought, User } from '../models/index'
 
-/**
- * GET All Courses /courses
- * @returns an array of Courses
-*/
-export const getAllCourses = async(_req: Request, res: Response) => {
+// Returns an array of Thoughts
+export const getAllThoughts = async(_req: Request, res: Response) => {
     try {
-        const courses = await Course.find();
-        res.json(courses);
+        const thoughts = await Thought.find();
+        res.json(thoughts);
     } catch(error: any){
         res.status(500).json({
             message: error.message
@@ -16,20 +13,16 @@ export const getAllCourses = async(_req: Request, res: Response) => {
     }
 }
 
-/**
- * GET Course based on id /course/:id
- * @param string id
- * @returns a single Course object
-*/
-export const getCourseById = async (req: Request, res: Response) => {
-    const { courseId } = req.params;
+// GET Thought based on id /thought/:id
+export const getThoughtById = async (req: Request, res: Response) => {
+    const { thoughtId } = req.params;
     try {
-      const student = await Course.findById(courseId);
-      if(student) {
-        res.json(student);
+      const user = await Thought.findById(thoughtId);
+      if(user) {
+        res.json(user);
       } else {
         res.status(404).json({
-          message: 'Volunteer not found'
+          message: 'No user available'
         });
       }
     } catch (error: any) {
@@ -39,18 +32,14 @@ export const getCourseById = async (req: Request, res: Response) => {
     }
   };
 
-  /**
- * POST Course /courses
- * @param object username
- * @returns a single Course object
-*/
-export const createCourse = async (req: Request, res: Response) => {
-    const { course } = req.body;
+  // POST Thought /thoughts
+export const createThought = async (req: Request, res: Response) => {
+    const { thought } = req.body;
     try {
-      const newCourse = await Course.create({
-        course
+      const newThought = await Thought.create({
+    thought
       });
-      res.status(201).json(newCourse);
+      res.status(201).json(newThought);
     } catch (error: any) {
       res.status(400).json({
         message: error.message
@@ -58,24 +47,20 @@ export const createCourse = async (req: Request, res: Response) => {
     }
   };
 
-/**
- * PUT Course based on id /courses/:id
- * @param object id, username
- * @returns a single Course object
-*/
-export const updateCourse = async (req: Request, res: Response) => {
+// PUT Thought based on id /thoughts/:id
+export const updateThought = async (req: Request, res: Response) => {
     try {
-      const course = await Course.findOneAndUpdate(
-        { _id: req.params.courseId },
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
         { $set: req.body },
         { runValidators: true, new: true }
       );
 
-      if (!course) {
-        res.status(404).json({ message: 'No course with this id!' });
+      if (!thought) {
+        res.status(404).json({ message: 'No thought with this id to update' });
       }
 
-      res.json(course)
+      res.json(thought)
     } catch (error: any) {
       res.status(400).json({
         message: error.message
@@ -83,22 +68,18 @@ export const updateCourse = async (req: Request, res: Response) => {
     }
   };
 
-  /**
- * DELETE Course based on id /courses/:id
- * @param string id
- * @returns string 
-*/
-export const deleteCourse = async (req: Request, res: Response) => {
+  // DELETE Thought based on id /thoughts/:id
+export const deleteThoughts = async (req: Request, res: Response) => {
     try {
-      const course = await Course.findOneAndDelete({ _id: req.params.courseId});
+      const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId});
       
-      if(!course) {
+      if(!thought) {
         res.status(404).json({
-          message: 'No course with that ID'
+          message: 'No thought with this id to delete'
         });
       } else {
-        await Student.deleteMany({ _id: { $in: course.students } });
-        res.json({ message: 'Course and students deleted!' });
+        await User.deleteMany({ _id: { $in: thought.user } });
+        res.json({ message: 'User and their thoughts deleted!' });
       }
       
     } catch (error: any) {
