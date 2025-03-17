@@ -25,9 +25,12 @@ required: true,
         },
         createdAt: {
             type: Date,
-            default: Date.now,
-            get: (timestamp) => new Date(timestamp).toLocaleString(),
+            default: () => new Date(),
         },
     },
+    {
+        timestamps: true,
+    }
 );
-//This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
+const Reaction = model<IReaction>('Reaction', reactionSchema);
+export default Reaction;
