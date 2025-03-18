@@ -5,19 +5,24 @@ const reactionSchema = new Schema({
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId(),
     },
-    thoughtText: {
+    reactionText: {
         type: String,
         required: true,
         maxlength: 280,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => new Date(timestamp).toLocaleString(),
-    },
+    // createdAt: {
+    //     type: Date,
+    //     default: Date.now,
+    //     get: (timestamp) => new Date(timestamp).toLocaleString(),
+    // },
     username: {
         type: String,
         required: true,
+    },
+}, {
+    timestamps: true,
+    toJSON: {
+        getters: true,
     },
 });
 const thoughtSchema = new Schema({
@@ -27,17 +32,13 @@ const thoughtSchema = new Schema({
         maxlength: 280,
         minlength: 1,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => new Date(timestamp).toLocaleString(),
-    },
     username: {
         type: String,
         required: true,
     },
     reactions: [reactionSchema],
 }, {
+    timestamps: true,
     toJSON: {
         virtuals: true,
         getters: true,

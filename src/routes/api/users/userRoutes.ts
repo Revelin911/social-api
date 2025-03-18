@@ -5,8 +5,8 @@ import {
   getUserById,
   createUser,
   deleteUser,
-  addThought,
-  removeThought,
+  addFriend,
+  removeFriends,
 } from '../../../controllers/userController';
 
 // /api/users
@@ -21,14 +21,14 @@ router
 .get(getUserById)
 .delete(deleteUser);
 
-// /api/users/:userId/thoughts
+// /api/users/:userId/friends
 router
-.route('/:userId/thoughts')
-.post(addThought);
+.route('/:userId/friends')
+.post(addFriend);
 
-// /api/users/:userId/thoughts/:thoughtId
+// /api/users/:userId/friends/:friendId
 router
-.route('/:userId/thoughts/:thoughtId')
-.delete(removeThought);
+.route('/:userId/friends/:friendId')
+.delete(removeFriends);
 
 export { router as UserRouter} ;

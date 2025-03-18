@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import { getAllUsers, getUserById, createUser, deleteUser, addThought, removeThought, } from '../../../controllers/userController';
+import { getAllUsers, getUserById, createUser, deleteUser, addFriend, removeFriends, } from '../../../controllers/userController';
 // /api/users
 router
     .route('/')
@@ -11,12 +11,12 @@ router
     .route('/:userId')
     .get(getUserById)
     .delete(deleteUser);
-// /api/users/:userId/thoughts
+// /api/users/:userId/friends
 router
-    .route('/:userId/thoughts')
-    .post(addThought);
-// /api/users/:userId/thoughts/:thoughtId
+    .route('/:userId/friends')
+    .post(addFriend);
+// /api/users/:userId/friends/:friendId
 router
-    .route('/:userId/thoughts/:thoughtId')
-    .delete(removeThought);
+    .route('/:userId/friends/:friendId')
+    .delete(removeFriends);
 export { router as UserRouter };

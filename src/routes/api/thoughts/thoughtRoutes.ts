@@ -5,7 +5,7 @@ import {
   getThoughtById,
   createThought,
   updateThought,
-  deleteThought,
+  deleteThoughts,
 } from '../../../controllers/thoughtController';
 
 // /api/thoughts
@@ -16,6 +16,16 @@ router
   .route('/:thoughtId')
   .get(getThoughtById)
   .put(updateThought)
-  .delete(deleteThought);
+  .delete(deleteThoughts);
+
+//   // /api/users/:userId/thoughts
+// router
+// .route('/:userId/thoughts')
+// .post(addThought);
+
+// // /api/users/:userId/thoughts/:thoughtId
+// router
+// .route('/:userId/thoughts/:thoughtId')
+// .delete(removeThought);
 
 export { router as ThoughtRouter };
